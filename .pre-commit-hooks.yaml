@@ -1,0 +1,79 @@
+# Copyright (c) 2026 BYU FROST Lab
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# --- C++ Auto-Format ---
+- id: ament_uncrustify
+  name: ament_uncrustify
+  entry: scripts/run_hook.sh ament_uncrustify
+  args: ["--reformat"]
+  language: script
+  files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cxx|cu)$
+
+# --- C++ Linting ---
+- id: ament_cpplint
+  name: ament_cpplint
+  entry: scripts/run_hook.sh ament_cpplint
+  language: script
+  files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cxx|cu)$
+
+- id: ament_cppcheck
+  name: ament_cppcheck
+  entry: scripts/run_hook.sh ament_cppcheck
+  language: script
+  files: \.(h\+\+|h|hh|hxx|hpp|cuh|c|cc|cpp|cxx|cu)$
+
+# --- Python Linting ---
+- id: ament_flake8
+  name: ament_flake8
+  entry: scripts/run_hook.sh ament_flake8
+  language: script
+  files: \.py$
+  exclude: /setup\.py$
+
+- id: ament_pep257
+  name: ament_pep257
+  entry: scripts/run_hook.sh ament_pep257
+  language: script
+  files: \.py$
+  exclude: /setup\.py$
+
+# --- CMake & XML Linting ---
+- id: ament_lint_cmake
+  name: ament_lint_cmake
+  entry: scripts/run_hook.sh ament_lint_cmake
+  language: script
+  files: CMakeLists\.txt$
+
+- id: ament_xmllint
+  name: ament_xmllint
+  entry: scripts/run_hook.sh ament_xmllint
+  language: script
+  files: \.xml$
+
+# --- Copyright Check ---
+- id: ament_copyright
+  name: ament_copyright
+  entry: scripts/run_hook.sh ament_copyright
+  language: script
+  files: .
+  exclude: |
+      (?x)^(
+          .*\.json|
+          .*\.yaml|
+          .*\.yml|
+          .*\.xml|
+          .*\.repos|
+          .*\.txt|
+          .*/setup\.py
+      )$
